@@ -1,0 +1,272 @@
+// ===========================
+// 🎨 Variables
+// ===========================
+
+// الألوان الأساسية
+// $primary-color: #198754; // أخضر بوتستراب (تقدر تغيره)
+$secondary-color: #f8f9fa;
+$text-color: #212529;
+$bg-color: #ffffff;
+$accent-color: #ffc107; // أصفر للتنبيهات أو العروض
+
+$primary-color: #007bff;
+$white: #ffffff;
+$black: #000000;
+$overlay-color: rgba(0, 0, 0, 0.5);
+$hero-height: 70vh;
+// الخطوط
+$base-font: 'Segoe UI', sans-serif;
+$heading-font: 'Segoe UI', sans-serif;
+$text-muted: #6c757d;
+
+// ===========================
+// 📐 إعدادات عامة
+// ===========================
+
+body {
+  font-family: $base-font;
+  background-color: $bg-color;
+  color: $text-color;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: $heading-font;
+  font-weight: bold;
+  color: $primary-color;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  &:hover {
+    color: darken($primary-color, 10%);
+  }
+}
+
+// ===========================
+// 🧱 أقسام الصفحة
+// ===========================
+
+// البطل (Hero Section)
+.hero {
+  position: relative;
+  min-height: $hero-height;
+  overflow: hidden;
+
+  .carousel {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+    .carousel-item {
+      height: 100%;
+
+      .hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.6); // تعتيم الخلفية لظهور النص
+      }
+    }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 60px 20px;
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .btn-primary {
+      font-size: 1.1rem;
+      padding: 12px 30px;
+      border-radius: 50px;
+      background-color: $primary-color;
+      border: none;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+
+    .offer-badge {
+      display: inline-block;
+      background-color: #ffc107;
+      color: $black;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      i {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+// ===========================
+// Features Section
+// ===========================
+
+.features {
+  background-color: #fff;
+  padding: 60px 20px;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: $text-muted;
+    font-size: 1rem;
+  }
+
+  .feature-box {
+    background-color: #f9f9f9;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+
+    i {
+      color: $primary-color;
+    }
+
+    h5 {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// 🛍️ كروت المنتجات
+.product-card {
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: $secondary-color;
+  transition: transform 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  .carousel-inner img {
+    height: 300px;
+    object-fit: cover;
+  }
+
+  .card-body {
+    h5 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .small {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    .row {
+      .form-label {
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .form-select {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.5rem;
+      }
+    }
+
+    .en-numbers {
+      direction: ltr;
+      unicode-bidi: plaintext; // يجبر الأرقام تظهر إنجليزية حتى في متصفح عربي
+    }
+  }
+
+}
+#productsMobileCarousel {
+  position: relative;
+  margin-bottom: 50px;
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &:hover {
+      background-color: rgba(0,0,0,0.7);
+    }
+  }
+
+  .carousel-indicators {
+    bottom: -40px;
+
+    button {
+      height: 5px;
+      background-color: rgba(0,0,0,0.5);
+      margin: 0 4px;
+    }
+  }
+}
+
+
+// ✅ نموذج الطلب
+.order-form {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#cart-items .btn {
+  margin: 0 2px;
+}
+
+// ===========================
+// 💬 زر الواتساب
+// ===========================
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: white;
+  font-size: 20px;
+  padding: 12px 16px;
+  border-radius: 50%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+
+  &:hover {
+    background-color: darken(#25D366, 10%);
+    text-decoration: none;
+  }
+}
