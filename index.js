@@ -39,23 +39,27 @@ document.addEventListener("DOMContentLoaded", function () {
       total += itemTotal;
 
       const div = document.createElement("div");
-      div.className = "border p-2 mb-2 bg-white rounded shadow-sm";
+      div.className = "border rounded bg-white shadow-sm p-3 mb-3";
+
       div.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <strong>${item.title}</strong><br>
-            Size: ${item.size}, Color: ${item.color}<br>
-            ৳${item.sale} x ${item.qty} = ৳${itemTotal}
-          </div>
-          <div>
-            <button class="btn btn-sm btn-outline-secondary me-1" onclick="changeQty(${index}, -1)">-</button>
-            <button class="btn btn-sm btn-outline-secondary me-1" onclick="changeQty(${index}, 1)">+</button>
-            <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">
+      <div class="row align-items-center gy-2">
+        <div class="col-12 col-md-8">
+          <strong class="d-block">${item.title}</strong>
+          <small class="text-muted d-block">Size: ${item.size}, Color: ${item.color}</small>
+          <small class="text-muted d-block">৳${item.sale} × ${item.qty} = <strong>৳${itemTotal}</strong></small>
+        </div>
+        <div class="col-12 col-md-4 text-md-end">
+          <div class="btn-group btn-group-sm mt-2 mt-md-0" role="group">
+            <button class="btn btn-outline-secondary" onclick="changeQty(${index}, -1)">-</button>
+            <button class="btn btn-outline-secondary" onclick="changeQty(${index}, 1)">+</button>
+            <button class="btn btn-danger" onclick="removeFromCart(${index})">
               <i class="bi bi-trash"></i>
             </button>
           </div>
         </div>
-      `;
+      </div>
+    `;
+
       container.appendChild(div);
     });
 
@@ -94,11 +98,56 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => alert.remove(), 2500);
   }
 
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })();
+
   // منع إرسال النموذج إذا كانت السلة فارغة
   document.getElementById("order-form").addEventListener("submit", function (e) {
     if (cart.length === 0) {
       e.preventDefault();
-      alert("🛒 Please add a product before submitting the order.");
+      const alert = document.createElement("div");
+      alert.className = "alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3 shadow";
+      alert.style.zIndex = "9999";
+      alert.innerHTML = "🛒 Please add at least one product before submitting the order.";
+      document.body.appendChild(alert);
+      setTimeout(() => alert.remove(), 3000);
+      return;
+    } else {
+      e.preventDefault(); // نمنع الإرسال الفعلي مؤقتًا (احذف هذا السطر إذا النموذج فعلاً يرسل للإيميل أو سيرفر)
+
+      // عرض رسالة الشكر
+      const alert = document.createElement("div");
+      alert.className = "alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3 shadow";
+      alert.style.zIndex = "9999";
+      alert.innerHTML = "✅ Thank you! Your order has been received.";
+      document.body.appendChild(alert);
+      setTimeout(() => alert.remove(), 3000);
+
+      // تفرغ السلة
+      cart.length = 0;
+      updateCartDisplay();
+
+      // إعادة تعيين النموذج (الاسم، العنوان، إلخ)
+      this.reset();
     }
   });
+
 });

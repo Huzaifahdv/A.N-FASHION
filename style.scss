@@ -3,7 +3,6 @@
 // ===========================
 
 // الألوان الأساسية
-// $primary-color: #198754; // أخضر بوتستراب (تقدر تغيره)
 $secondary-color: #f8f9fa;
 $text-color: #212529;
 $bg-color: #ffffff;
@@ -13,7 +12,7 @@ $primary-color: #007bff;
 $white: #ffffff;
 $black: #000000;
 $overlay-color: rgba(0, 0, 0, 0.5);
-$hero-height: 70vh;
+$hero-height: 80vh;
 // الخطوط
 $base-font: 'Segoe UI', sans-serif;
 $heading-font: 'Segoe UI', sans-serif;
@@ -44,21 +43,59 @@ a {
   }
 }
 
-// ===========================
+// تأثير التركيز لجميع الحقول في النماذج والمقاسات والألوان والأزرار
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(222, 184, 135, 0.5) !important; // بيج ذهبي ناعم
+  transition: box-shadow 0.2s ease-in-out !important;
+  border-color: rgba(222, 184, 135, 0.8) !important;
+}
+
 // 🧱 أقسام الصفحة
 // ===========================
+// ===========================
+// ===========================
+// الهيدر (Header)
+// ===========================
+header {
+  background-color: $black;
+  color: $white;
+  padding: 1rem 0;
 
-// البطل (Hero Section)
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+// ===========================
+// قسم البطل (Hero Section)
+// ===========================
 .hero {
-  position: relative;
   min-height: $hero-height;
+  position: relative;
   overflow: hidden;
 
   .carousel {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: 1;
 
     .carousel-item {
@@ -68,7 +105,7 @@ a {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        filter: brightness(0.6); // تعتيم الخلفية لظهور النص
+        filter: brightness(0.6);
       }
     }
   }
@@ -80,19 +117,19 @@ a {
     padding: 60px 20px;
 
     h1 {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       font-weight: 700;
     }
 
     p {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       max-width: 600px;
       margin: 0 auto;
     }
 
     .btn-primary {
-      font-size: 1.1rem;
-      padding: 12px 30px;
+      font-size: 1rem;
+      padding: 10px 25px;
       border-radius: 50px;
       background-color: $primary-color;
       border: none;
@@ -104,62 +141,135 @@ a {
 
     .offer-badge {
       display: inline-block;
-      background-color: #ffc107;
+      background-color: $accent-color;
       color: $black;
       font-weight: 600;
       padding: 8px 20px;
       border-radius: 30px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+
       i {
         color: $primary-color;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-content {
+      h1 {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      .btn-primary {
+        font-size: 0.95rem;
+        padding: 8px 20px;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    min-height: 60vh;
+
+    .hero-content {
+      padding: 40px 15px;
+
+      h1 {
+        font-size: 1.6rem;
+      }
+      p {
+        font-size: 0.95rem;
+      }
+      .btn-primary {
+        font-size: 0.85rem;
+        padding: 8px 18px;
+      }
+    }
+  }
+}
+
+
+// ===========================
+// قسم المميزات (Features Section)
+// ===========================
+.features {
+  background-color: #fff;
+  padding: 60px 20px;
+
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: $text-muted;
+    font-size: 1.1rem;
+  }
+
+  .feature-box {
+    background-color: #fcfcfc;
+    border-radius: 20px;
+    padding: 30px 20px;
+    transition: all 0.3s ease-in-out;
+
+    i {
+      color: $primary-color;
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+
+    h5 {
+      font-size: 1.3rem;
+      margin-top: 10px;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-top: 8px;
+    }
+
+    &:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  // استجابة للجوالات
+  @media (max-width: 576px) {
+    h2 {
+      font-size: 1.6rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    .feature-box {
+      padding: 20px 15px;
+
+      h5 {
+        font-size: 1.1rem;
+      }
+
+      p {
+        font-size: 0.95rem;
+      }
+
+      i {
+        font-size: 2rem;
       }
     }
   }
 }
 
 // ===========================
-// Features Section
+// قسم المنتجات (Products Section)
 // ===========================
-
-.features {
-  background-color: #fff;
-  padding: 60px 20px;
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-
-  p {
-    color: $text-muted;
-    font-size: 1rem;
-  }
-
-  .feature-box {
-    background-color: #f9f9f9;
-    border-radius: 16px;
-    transition: all 0.3s ease;
-
-    i {
-      color: $primary-color;
-    }
-
-    h5 {
-      font-size: 1.2rem;
-      margin-top: 10px;
-    }
-
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
-  }
-}
-
-// 🛍️ كروت المنتجات
 .product-card {
   border: 1px solid #dee2e6;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   background-color: $secondary-color;
   transition: transform 0.2s;
@@ -169,87 +279,97 @@ a {
     transform: scale(1.02);
   }
 
-  .carousel-inner img {
-    height: 300px;
-    object-fit: cover;
+  .carousel-inner {
+    img {
+      height: 300px;
+      object-fit: cover;
+      @media (max-width: 768px) {
+        max-height: 250px;
+      }
+      @media (max-width: 576px) {
+        height: 220px;
+      }
+    }
   }
 
   .card-body {
     h5 {
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 1rem;
+      font-weight: 700;
+      min-height: 35px;
     }
 
     .small {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+      min-height: 1rem;
       color: #666;
       margin-bottom: 0.5rem;
+
+    }
+    .product-price {
+      max-height: 16px;
     }
 
-    .row {
-      .form-label {
-        font-size: 0.85rem;
-        margin-bottom: 0.3rem;
-      }
+    .form-label {
+      font-size: 0.8rem;
+      margin-bottom: 0.3rem;
+    }
 
-      .form-select {
-        font-size: 0.9rem;
-        padding: 0.3rem 0.5rem;
-      }
+    .form-select {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.5rem;
     }
 
     .en-numbers {
+      font-size: 0.8rem;
       direction: ltr;
-      unicode-bidi: plaintext; // يجبر الأرقام تظهر إنجليزية حتى في متصفح عربي
+      unicode-bidi: plaintext;
     }
   }
-
-}
-#productsMobileCarousel {
-  position: relative;
-  margin-bottom: 50px;
-  .carousel-control-prev,
-  .carousel-control-next {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-
-    &:hover {
-      background-color: rgba(0,0,0,0.7);
-    }
-  }
-
-  .carousel-indicators {
-    bottom: -40px;
-
-    button {
-      height: 5px;
-      background-color: rgba(0,0,0,0.5);
-      margin: 0 4px;
-    }
+  @media (max-width: 768px) {
+    max-height: 600px !important;
   }
 }
 
-
-// ✅ نموذج الطلب
+// ===========================
+// قسم نموذج الطلب (Order Form)
+// ===========================
 .order-form {
   background-color: #f8f9fa;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
+sup {
+  color: red;
+}
 
 #cart-items .btn {
   margin: 0 2px;
 }
 
+.footer {
+  a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+    &:hover {
+      color: #ffc107;
+    }
+  }
+
+  i {
+    vertical-align: middle;
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+  }
+}
+
+
 // ===========================
 // 💬 زر الواتساب
 // ===========================
-
 .whatsapp-float {
   position: fixed;
   bottom: 20px;
