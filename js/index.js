@@ -71,6 +71,50 @@ document.addEventListener("DOMContentLoaded", function () {
     productsInput.value = cart
       .map((p) => `${p.title} (${p.size}, ${p.color}) x${p.qty}`)
       .join(" | ");
+
+    // تحديث زر السلة العائم
+    const floatingCartBtn = document.getElementById("floating-cart-btn");
+    const cartCountBadge = document.getElementById("cart-count-badge");
+    const orderFormSection = document.getElementById("order-form");
+    const productsSection = document.getElementById("products-section"); // ضيف id للمنتجات
+    // تحديث عدد المنتجات
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    cartCountBadge.textContent = totalQty;
+
+    // إظهار الزر أو إخفاؤه حسب الحالة (جوال فقط)
+    if (window.innerWidth <= 768) {
+      if (totalQty > 0) {
+        floatingCartBtn.style.display = "block";
+      } else {
+        floatingCartBtn.style.display = "none";
+      }
+    }
+    floatingCartBtn.addEventListener("click", function () {
+      orderFormSection.scrollIntoView({ behavior: "smooth" });
+    });
+
+    const observerOptions = {
+      root: null,
+      threshold: 0.2 // 20% من العنصر ظاهر
+    };
+
+    // إخفاء الزر عند رؤية نموذج الطلب
+    const orderObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          floatingCartBtn.style.display = "none";
+        } else {
+          // إذا ما كان داخل النموذج ورجع لقسم المنتجات
+          if (cart.length > 0 && window.innerWidth <= 768) {
+            floatingCartBtn.style.display = "block";
+          }
+        }
+      });
+    }, observerOptions);
+
+    if (orderFormSection) {
+      orderObserver.observe(orderFormSection);
+    }
   }
 
   // تغيير الكمية
