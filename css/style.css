@@ -328,4 +328,23 @@ sup {
   padding: 4px 6px;
 }
 
+#langToggleBtn {
+  padding: 5px 15px;
+  margin-right: 10px;
+  border: 1px solid #ffffff;
+  background: transparent;
+  color: #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#langToggleBtn:hover {
+  background: #ffffff;
+  color: #121212;
+}
+#langToggleBtn.active {
+  background: #ffffff;
+  color: #121212;
+}
+
 /*# sourceMappingURL=style.css.map */

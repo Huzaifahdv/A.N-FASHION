@@ -198,7 +198,6 @@ header {
   }
 }
 
-
 // ===========================
 // قسم المميزات (Features Section)
 // ===========================
@@ -422,4 +421,25 @@ sup {
 #cart-count-badge {
   font-size: 0.75rem;
   padding: 4px 6px;
+}
+
+#langToggleBtn {
+  padding: 5px 15px;
+  margin-right: 10px;
+  border: 1px solid $white;
+  background: transparent;
+  color: $white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $white;
+    color: $header-bg-color;
+  }
+
+  &.active {
+    background: $white;
+    color: $header-bg-color;
+  }
 }
