@@ -466,47 +466,59 @@
   <section id="order-form" class="py-5 bg-light">
     <div class="container">
       <h3 class="text-center mb-4" data-i18n="orderForm.heading">Place Your Order</h3>
-      <form  method="POST" class="row g-3 needs-validation" novalidate>
+      <form action="https://formsubmit.co/holmzsharlok66@gmail.com" method="POST" class="row g-3 needs-validation" novalidate>
+
+        <!-- إعدادات Formsubmit -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" value="🛒 New Order from Website">
+        <input type="hidden" name="product" id="product-input">
+        <input type="hidden" name="total_price" id="total-price-input">
+
+        <!-- الاسم -->
         <div class="col-md-6">
           <label class="form-label" data-i18n="orderForm.name">Name <sup>*</sup></label>
           <input type="text" name="name" class="form-control" placeholder="Enter your name" required data-placeholder="orderForm.namePlaceholder">
-          <div class="invalid-feedback">
-            Please enter your name.
-          </div>
+          <div class="invalid-feedback">Please enter your name.</div>
         </div>
+
+        <!-- رقم الجوال -->
         <div class="col-md-6">
           <label class="form-label"data-i18n="orderForm.phone">Phone Number <sup>*</sup></label>
           <input type="tel" name="phone" class="form-control" placeholder="01XXXXXXXXX" pattern="01[0-9]{9}" maxlength="11" minlength="11" required data-placeholder="orderForm.phonePlaceholder">
-          <div class="invalid-feedback">
-            Please enter your phone number.
-          </div>
+          <div class="invalid-feedback">Please enter your phone number.</div>
         </div>
+
+        <!-- العنوان -->
         <div class="col-12">
           <label class="form-label" data-i18n="orderForm.address">Full Address <sup>*</sup></label>
           <textarea name="address" rows="2" class="form-control" placeholder="Enter your full address: House number, area, street name, region, city..." required data-placeholder="orderForm.addressPlaceholder"></textarea>
-          <div class="invalid-feedback">
-            Please enter your full address.
-          </div>
+          <div class="invalid-feedback">Please enter your full address.</div>
         </div>
+
+        <!-- ملاحظات -->
         <div class="col-12">
           <label class="form-label" data-i18n="orderForm.notes">Notes (optional)</label>
           <textarea name="notes" rows="2" class="form-control" placeholder="For example: Call an hour before arrival." data-placeholder="orderForm.notesPlaceholder"></textarea>
         </div>
+
         <!-- المنتجات المضافة إلى السلة -->
         <div class="col-12">
           <label class="form-label">Products :</label>
           <div id="cart-items" class="mb-3">
             <!-- سيتم إدراج المنتجات هنا -->
           </div>
-          <input type="hidden" name="product" id="product-input">
         </div>
   
+        <!-- الأسعار -->
         <div class="mb-3">
           <strong data-i18n="orderForm.shipping">Shipping: </strong> ৳120
         </div>
         <div class="mb-3">
           <strong data-i18n="orderForm.total">Total: </strong> <span id="total-price">৳0</span>
         </div>
+
+        <!-- زر الإرسال -->
         <div class="col-12 text-center">
           <button type="submit" class="btn btn-success confirm-order-btn px-4" data-i18n="orderForm.confirmOrderButton">Confirm Order - Pay on Delivery</button>
         </div>

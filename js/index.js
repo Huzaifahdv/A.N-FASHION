@@ -65,12 +65,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     total += SHIPPING_COST;
     document.getElementById("total-price").innerText = `৳${total}`;
-
-    // تحديث حقل المنتج في النموذج
-    const productsInput = document.getElementById("product-input");
-    productsInput.value = cart
-      .map((p) => `${p.title} (${p.size}, ${p.color}) x${p.qty}`)
+    document.getElementById("product-input").value = cart
+      .map((p) => `${p.title} (${p.size}, ${p.color}) x${p.qty} = ৳${p.sale * p.qty}`)
       .join(" | ");
+    document.getElementById("total-price-input").value = total;
 
     // تحديث زر السلة العائم
     const floatingCartBtn = document.getElementById("floating-cart-btn");
@@ -175,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => alert.remove(), 3000);
       return;
     } else {
-      e.preventDefault(); // نمنع الإرسال الفعلي مؤقتًا (احذف هذا السطر إذا النموذج فعلاً يرسل للإيميل أو سيرفر)
+      // نمنع الإرسال الفعلي مؤقتًا (احذف هذا السطر إذا النموذج فعلاً يرسل للإيميل أو سيرفر)... حذفت من هنا هذا الكود e.preventDefault(); 
 
       // عرض رسالة الشكر
       const alert = document.createElement("div");
