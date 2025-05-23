@@ -34,6 +34,32 @@ document.addEventListener("DOMContentLoaded", function () {
     container.innerHTML = "";
     let total = 0;
 
+    // تحضير النصوص حسب اللغة الحالية
+    const texts = {
+      en: {
+        product: "Product",
+        size: "Size",
+        color: "Color",
+        quantity: "Quantity",
+        price: "Price",
+        subtotal: "Subtotal",
+        shipping: "Shipping",
+        total: "Total"
+      },
+      bn: {
+        product: "পণ্য",
+        size: "সাইজ",
+        color: "রং",
+        quantity: "পরিমাণ",
+        price: "মূল্য",
+        subtotal: "উপমোট",
+        shipping: "শিপিং",
+        total: "মোট"
+      }
+    };
+
+    const t = texts[window.currentLang || 'en'];
+
     cart.forEach((item, index) => {
       const itemTotal = item.sale * item.qty;
       total += itemTotal;
@@ -45,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <div class="row align-items-center gy-2">
         <div class="col-12 col-md-8">
           <strong class="d-block">${item.title}</strong>
-          <small class="text-muted d-block">Size: ${item.size}, Color: ${item.color}</small>
+          <small class="text-muted d-block">${t.size}: ${item.size}, ${t.color}: ${item.color}</small>
           <small class="text-muted d-block">৳${item.sale} × ${item.qty} = <strong>৳${itemTotal}</strong></small>
         </div>
         <div class="col-12 col-md-4 text-md-end">
@@ -63,46 +89,63 @@ document.addEventListener("DOMContentLoaded", function () {
       container.appendChild(div);
     });
 
+    // إضافة تكلفة الشحن
     total += SHIPPING_COST;
+
+    // عرض المجموع النهائي
     document.getElementById("total-price").innerText = `৳${total}`;
-    document.getElementById("product-input").value = cart
-      .map((p) => `${p.title} (${p.size}, ${p.color}) x${p.qty} = ৳${p.sale * p.qty}`)
-      .join(" | ");
-    document.getElementById("total-price-input").value = total;
+
+    // تحديث حقل المنتجات (لـ Formsubmit)
+    const productInput = document.getElementById("product-input");
+    if (productInput) {
+      const orderSummary = cart.map(item =>
+        `${t.product}: ${item.title}\n` +
+        `${t.size}: ${item.size}\n` +
+        `${t.color}: ${item.color}\n` +
+        `${t.quantity}: ${item.qty}\n` +
+        `${t.price}: ৳${item.sale}\n` +
+        `${t.subtotal}: ৳${item.sale * item.qty}`
+      ).join("\n\n---\n\n");
+
+      productInput.value = orderSummary + "\n\n" +
+        `${t.shipping}: ৳${SHIPPING_COST}\n` +
+        `${t.total}: ৳${total}`;
+    }
+
+    const totalPriceInput = document.getElementById("total-price-input");
+    if (totalPriceInput) {
+      totalPriceInput.value = `৳${total} (${t.shipping}: ৳${SHIPPING_COST})`;
+    }
 
     // تحديث زر السلة العائم
     const floatingCartBtn = document.getElementById("floating-cart-btn");
     const cartCountBadge = document.getElementById("cart-count-badge");
     const orderFormSection = document.getElementById("order-form");
-    const productsSection = document.getElementById("products-section"); // ضيف id للمنتجات
+
     // تحديث عدد المنتجات
     const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
     cartCountBadge.textContent = totalQty;
 
-    // إظهار الزر أو إخفاؤه حسب الحالة (جوال فقط)
+    // إظهار أو إخفاء زر السلة حسب العرض
     if (window.innerWidth <= 768) {
-      if (totalQty > 0) {
-        floatingCartBtn.style.display = "block";
-      } else {
-        floatingCartBtn.style.display = "none";
-      }
+      floatingCartBtn.style.display = totalQty > 0 ? "block" : "none";
     }
+
     floatingCartBtn.addEventListener("click", function () {
       orderFormSection.scrollIntoView({ behavior: "smooth" });
     });
 
+    // إعداد ملاحظة ظهور قسم الطلبات
     const observerOptions = {
       root: null,
-      threshold: 0.2 // 20% من العنصر ظاهر
+      threshold: 0.2
     };
 
-    // إخفاء الزر عند رؤية نموذج الطلب
     const orderObserver = new IntersectionObserver(function (entries) {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           floatingCartBtn.style.display = "none";
         } else {
-          // إذا ما كان داخل النموذج ورجع لقسم المنتجات
           if (cart.length > 0 && window.innerWidth <= 768) {
             floatingCartBtn.style.display = "block";
           }
@@ -114,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
       orderObserver.observe(orderFormSection);
     }
   }
+
 
   // تغيير الكمية
   window.changeQty = function (index, delta) {
@@ -165,6 +209,8 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("order-form").addEventListener("submit", function (e) {
     if (cart.length === 0) {
       e.preventDefault();
+
+      // ❗ إشعار: لا يمكن إرسال الطلب بدون منتجات
       const alert = document.createElement("div");
       alert.className = "alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3 shadow";
       alert.style.zIndex = "9999";
@@ -172,24 +218,43 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.appendChild(alert);
       setTimeout(() => alert.remove(), 3000);
       return;
-    } else {
-      // نمنع الإرسال الفعلي مؤقتًا (احذف هذا السطر إذا النموذج فعلاً يرسل للإيميل أو سيرفر)... حذفت من هنا هذا الكود e.preventDefault(); 
-
-      // عرض رسالة الشكر
-      const alert = document.createElement("div");
-      alert.className = "alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3 shadow";
-      alert.style.zIndex = "9999";
-      alert.innerHTML = "✅ Thank you! Your order has been received.";
-      document.body.appendChild(alert);
-      setTimeout(() => alert.remove(), 3000);
-
-      // تفرغ السلة
-      cart.length = 0;
-      updateCartDisplay();
-
-      // إعادة تعيين النموذج (الاسم، العنوان، إلخ)
-      this.reset();
     }
+
+    // ✅ تجميع كل تفاصيل الطلب
+    const orderSummary = cart.map(item =>
+      `Product: ${item.title}\n` +
+      `Size: ${item.size}\n` +
+      `Color: ${item.color}\n` +
+      `Quantity: ${item.qty}\n` +
+      `Price: ৳${item.sale}\n` +
+      `Subtotal: ৳${item.sale * item.qty}`
+    ).join("\n\n---\n\n");
+
+    // ✅ تحديث الحقول المخفية قبل الإرسال
+    const productInput = document.getElementById("product-input");
+    const totalPriceInput = document.getElementById("total-price-input");
+
+    if (productInput) {
+      productInput.value = orderSummary + "\n\n" +
+        "Shipping: ৳" + SHIPPING_COST + "\n" +
+        "Total: " + document.getElementById("total-price").textContent;
+    }
+
+    if (totalPriceInput) {
+      totalPriceInput.value = document.getElementById("total-price").textContent;
+    }
+
+    // ✅ عرض إشعار مؤقت للمستخدم (لكن بدون منع الإرسال)
+    const alert = document.createElement("div");
+    alert.className = "alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3 shadow";
+    alert.style.zIndex = "9999";
+    alert.innerHTML = "✅ Thank you! Your order has been received.";
+    document.body.appendChild(alert);
+    setTimeout(() => alert.remove(), 3000);
+
+    // ❌ لا تفرغ السلة ولا تعيد ضبط النموذج هنا
+    // ✅ خله يتوجه تلقائيًا إلى صفحة الشكر عبر Formsubmit
   });
+
 
 });

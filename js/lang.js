@@ -5,7 +5,7 @@ async function loadLanguage(lang) {
     const response = await fetch(`assets/lang/${lang}.json`);
     const translations = await response.json();
 
-    // تحديث النصوص باستخدام الهيكل الصحيح للبيانات
+    // تحديث النصوص
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const keys = el.getAttribute("data-i18n").split(".");
       let value = translations;
@@ -13,11 +13,16 @@ async function loadLanguage(lang) {
         value = value[key];
       }
       if (value) {
-        el.textContent = value;
+        if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+          // للحقول النصية، نحدث placeholder و value
+          el.placeholder = value;
+        } else {
+          el.textContent = value;
+        }
       }
     });
 
-    // تحديث placeholder باستخدام الهيكل الصحيح للبيانات
+    // تحديث placeholder
     document.querySelectorAll("[data-placeholder]").forEach((el) => {
       const keys = el.getAttribute("data-placeholder").split(".");
       let value = translations;
@@ -30,6 +35,11 @@ async function loadLanguage(lang) {
     });
 
     currentLang = lang;
+
+    // مهم: تحديث عرض السلة بعد تغيير اللغة
+    if (typeof updateCartDisplay === 'function') {
+      updateCartDisplay();
+    }
   } catch (error) {
     console.error("Error loading language file:", error);
   }
@@ -54,3 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loadLanguage(currentLang);
   updateButtonState();
 });
+
+// تصدير الدالة والمتغير ليكونا متاحين في index.js
+window.currentLang = currentLang;
+window.loadLanguage = loadLanguage;
