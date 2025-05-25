@@ -450,4 +450,23 @@ sup {
   color: #121212;
 }
 
+.highlight {
+  animation: highlightProduct 2s ease-out;
+}
+
+@keyframes highlightProduct {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+  }
+}
+
 /*# sourceMappingURL=style.css.map */
