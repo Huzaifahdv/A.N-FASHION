@@ -305,5 +305,22 @@ document.addEventListener("DOMContentLoaded", function () {
     // ✅ خله يتوجه تلقائيًا إلى صفحة الشكر عبر Formsubmit
   });
 
+  // الحصول على معرف المنتج من URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('product');
 
+  if (productId) {
+    // إخفاء جميع المنتجات
+    document.querySelectorAll('.col-sm-6.col-md-4').forEach(card => {
+      card.style.display = 'none';
+    });
+
+    // إظهار المنتج المحدد فقط
+    const targetProduct = document.getElementById(`product-${productId}`);
+    if (targetProduct) {
+      targetProduct.style.display = 'block';
+      // التمرير إلى المنتج
+      targetProduct.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
 });
