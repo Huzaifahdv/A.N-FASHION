@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | A.N FASHION</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body class="admin-body">
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="container-fluid">
+      <div class="header-wrapper">
+        <button class="sidebar-toggle" id="sidebarToggle">
+          <i class="bi bi-list"></i>
+        </button>
+  
+        <h1 class="header-title">A.N Fashion Admin</h1>
+        <div class="header-actions">
+          <button class="btn btn-light" id="previewButton">
+            <i class="bi bi-eye"></i>
+            <span class="d-none d-sm-inline">Preview</span>
+          </button>
+          <button class="btn btn-success" id="saveButton">
+            <i class="bi bi-check2"></i>
+            <span class="d-none d-sm-inline">Save Changes</span>
+          </button>
+          <button class="btn btn-danger" id="logoutButton">
+            <i class="bi bi-box-arrow-right"></i>
+            <span class="d-none d-sm-inline">Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-content">
+      <div class="nav nav-pills flex-column">
+        <div class="nav-item">
+          <button class="nav-link active" data-section="hero">
+            <i class="bi bi-image"></i>
+            Hero Section
+          </button>
+        </div>
+        <div class="nav-item">
+          <button class="nav-link" data-section="products">
+            <i class="bi bi-box"></i>
+            Products
+          </button>
+        </div>
+        <div class="nav-item">
+          <button class="nav-link" data-section="orders">
+            <i class="bi bi-cart3"></i>
+            Order Form
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Main Content Wrapper -->
+  <div class="main-content-wrapper">
+    <!-- Main Content -->
+    <main class="admin-main">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <!-- Hero Section Content -->
+            <section id="heroSection" class="content-section">
+              <div class="section-header">
+                <h2>Hero Section Management</h2>
+                <p class="text-muted">Customize your homepage hero section content and images</p>
+              </div>
+
+              <div class="section-content">
+                <!-- Hero Images Grid -->
+                <div class="hero-images-grid mb-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Hero Slides</h5>
+                      <p class="card-subtitle text-muted mb-4">Upload images for your homepage slider (Recommended size:
+                        1920x1080px)</p>
+
+                      <div class="row g-4">
+                        <div class="col-lg-4 col-md-6">
+                          <div class="hero-image-upload">
+                            <div class="image-preview">
+                              <img src="../assets/images/Hero2.jpg" alt="Hero 1" class="img-fluid">
+                              <div class="image-overlay">
+                                <input type="file" class="image-upload-input" accept="image/*" data-slide="1">
+                                <div class="upload-icon">
+                                  <i class="bi bi-pencil"></i>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="image-info">
+                              <span class="slide-number">Slide 1</span>
+                              <small class="text-muted d-block">Main Hero Image</small>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                          <div class="hero-image-upload">
+                            <div class="image-preview">
+                              <img src="../assets/images/Hero3.jpg" alt="Hero 2" class="img-fluid">
+                              <div class="image-overlay">
+                                <input type="file" class="image-upload-input" accept="image/*" data-slide="2">
+                                <div class="upload-icon">
+                                  <i class="bi bi-pencil"></i>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="image-info">
+                              <span class="slide-number">Slide 2</span>
+                              <small class="text-muted d-block">Secondary Image</small>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                          <div class="hero-image-upload">
+                            <div class="image-preview">
+                              <img src="../assets/images/Hero4.jpg" alt="Hero 3" class="img-fluid">
+                              <div class="image-overlay">
+                                <input type="file" class="image-upload-input" accept="image/*" data-slide="3">
+                                <div class="upload-icon">
+                                  <i class="bi bi-pencil"></i>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="image-info">
+                              <span class="slide-number">Slide 3</span>
+                              <small class="text-muted d-block">Additional Image</small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Hero Content Form -->
+                <div class="hero-content-form">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Hero Content</h5>
+                      <p class="card-subtitle text-muted mb-4">Edit your hero section text and details</p>
+
+                      <form class="hero-form">
+                        <div class="mb-4">
+                          <label class="form-label">Offer Badge Text</label>
+                          <input type="text" name="offerBadgeText" class="form-control" id="offerBadgeText"
+                            placeholder="Ex: Special Offer">
+                          <small class="form-text text-muted">This text will appear as a badge above the main
+                            heading</small>
+                        </div>
+
+                        <div class="mb-4">
+                          <label class="form-label">Main Heading</label>
+                          <input type="text" class="form-control" id="heroHeading" placeholder="Enter main heading">
+                        </div>
+
+                        <div class="mb-4">
+                          <label class="form-label">Description</label>
+                          <textarea class="form-control" id="heroDescription" rows="4"
+                            placeholder="Enter hero section description"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                          <button type="submit" class="btn btn-primary save-hero">
+                            <i class="bi bi-save"></i>
+                            Save Changes
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Products Section Content -->
+            <section id="productsSection" class="content-section d-none">
+              <div class="section-header">
+                <h2>Products Management</h2>
+                <p class="text-muted">Manage your store products, images, and details</p>
+              </div>
+              <div class="row g-4">
+                <!-- Product Card 1 -->
+                <div class="col-lg-6">
+                  <div class="card product-card">
+                    <div class="card-header">
+                      <h5 class="mb-0">#product-PNJ001</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="product-images mb-4">
+                        <h6>Product Images</h6>
+                        <div class="row g-3" id="productImages-PNJ001">
+                          <!-- Images will be loaded dynamically -->
+                        </div>
+                        <div class="mt-3">
+                          <input type="file" class="form-control" id="imageUpload-PNJ001" multiple accept="image/*">
+                          <small class="text-muted">Min: 1 image, Max: 5 images</small>
+                        </div>
+                      </div>
+
+                      <form class="product-form">
+                        <div class="mb-3">
+                          <label class="form-label">Product Name</label>
+                          <input type="text" class="form-control" name="productName">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Short Description</label>
+                          <input type="text" class="form-control" name="shortDescription">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Full Description</label>
+                          <textarea class="form-control" name="fullDescription" rows="3"></textarea>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Regular Price (৳)</label>
+                            <input type="number" class="form-control" name="regularPrice">
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Sale Price (৳)</label>
+                            <input type="number" class="form-control" name="salePrice">
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Sizes</label>
+                          <div class="size-tags" id="sizeTags-PNJ001">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Sizes will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add size (e.g. M, L, XL)">
+                              <button class="btn btn-outline-primary add-size" type="button">Add Size</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Colors</label>
+                          <div class="color-tags" id="colorTags-PNJ001">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Colors will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add color (e.g. Red, Blue, Black)">
+                              <button class="btn btn-outline-primary add-color" type="button">Add Color</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="text-end">
+                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="col-lg-6">
+                  <div class="card product-card">
+                    <div class="card-header">
+                      <h5 class="mb-0">#product-PNJ002</h5>
+                    </div>
+                    <div class="card-body">
+                      <!-- Similar structure as PNJ001 -->
+                      <div class="product-images mb-4">
+                        <h6>Product Images</h6>
+                        <div class="row g-3" id="productImages-PNJ002">
+                          <!-- Images will be loaded dynamically -->
+                        </div>
+                        <div class="mt-3">
+                          <input type="file" class="form-control" id="imageUpload-PNJ002" multiple accept="image/*">
+                          <small class="text-muted">Min: 1 image, Max: 5 images</small>
+                        </div>
+                      </div>
+
+                      <form class="product-form">
+                        <!-- Similar form fields as PNJ001 -->
+                        <div class="mb-3">
+                          <label class="form-label">Product Name</label>
+                          <input type="text" class="form-control" name="productName">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Short Description</label>
+                          <input type="text" class="form-control" name="shortDescription">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Full Description</label>
+                          <textarea class="form-control" name="fullDescription" rows="3"></textarea>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Regular Price (৳)</label>
+                            <input type="number" class="form-control" name="regularPrice">
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Sale Price (৳)</label>
+                            <input type="number" class="form-control" name="salePrice">
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Sizes</label>
+                          <div class="size-tags" id="sizeTags-PNJ002">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Sizes will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add size (e.g. M, L, XL)">
+                              <button class="btn btn-outline-primary add-size" type="button">Add Size</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Colors</label>
+                          <div class="color-tags" id="colorTags-PNJ002">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Colors will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add color (e.g. Red, Blue, Black)">
+                              <button class="btn btn-outline-primary add-color" type="button">Add Color</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="text-end">
+                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="col-lg-6">
+                  <div class="card product-card">
+                    <div class="card-header">
+                      <h5 class="mb-0">#product-PNJ003</h5>
+                    </div>
+                    <div class="card-body">
+                      <!-- Similar structure as PNJ001 -->
+                      <div class="product-images mb-4">
+                        <h6>Product Images</h6>
+                        <div class="row g-3" id="productImages-PNJ003">
+                          <!-- Images will be loaded dynamically -->
+                        </div>
+                        <div class="mt-3">
+                          <input type="file" class="form-control" id="imageUpload-PNJ003" multiple accept="image/*">
+                          <small class="text-muted">Min: 1 image, Max: 5 images</small>
+                        </div>
+                      </div>
+
+                      <form class="product-form">
+                        <!-- Similar form fields as PNJ001 -->
+                        <div class="mb-3">
+                          <label class="form-label">Product Name</label>
+                          <input type="text" class="form-control" name="productName">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Short Description</label>
+                          <input type="text" class="form-control" name="shortDescription">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Full Description</label>
+                          <textarea class="form-control" name="fullDescription" rows="3"></textarea>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Regular Price (৳)</label>
+                            <input type="number" class="form-control" name="regularPrice">
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Sale Price (৳)</label>
+                            <input type="number" class="form-control" name="salePrice">
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Sizes</label>
+                          <div class="size-tags" id="sizeTags-PNJ003">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Sizes will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add size (e.g. M, L, XL)">
+                              <button class="btn btn-outline-primary add-size" type="button">Add Size</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Colors</label>
+                          <div class="color-tags" id="colorTags-PNJ003">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Colors will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add color (e.g. Red, Blue, Black)">
+                              <button class="btn btn-outline-primary add-color" type="button">Add Color</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="text-end">
+                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="col-lg-6">
+                  <div class="card product-card">
+                    <div class="card-header">
+                      <h5 class="mb-0">#product-PNJ004</h5>
+                    </div>
+                    <div class="card-body">
+                      <!-- Similar structure as PNJ001 -->
+                      <div class="product-images mb-4">
+                        <h6>Product Images</h6>
+                        <div class="row g-3" id="productImages-PNJ004">
+                          <!-- Images will be loaded dynamically -->
+                        </div>
+                        <div class="mt-3">
+                          <input type="file" class="form-control" id="imageUpload-PNJ004" multiple accept="image/*">
+                          <small class="text-muted">Min: 1 image, Max: 5 images</small>
+                        </div>
+                      </div>
+
+                      <form class="product-form">
+                        <!-- Similar form fields as PNJ001 -->
+                        <div class="mb-3">
+                          <label class="form-label">Product Name</label>
+                          <input type="text" class="form-control" name="productName">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Short Description</label>
+                          <input type="text" class="form-control" name="shortDescription">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Full Description</label>
+                          <textarea class="form-control" name="fullDescription" rows="3"></textarea>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Regular Price (৳)</label>
+                            <input type="number" class="form-control" name="regularPrice">
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Sale Price (৳)</label>
+                            <input type="number" class="form-control" name="salePrice">
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Sizes</label>
+                          <div class="size-tags" id="sizeTags-PNJ004">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Sizes will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add size (e.g. M, L, XL)">
+                              <button class="btn btn-outline-primary add-size" type="button">Add Size</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Colors</label>
+                          <div class="color-tags" id="colorTags-PNJ004">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Colors will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add color (e.g. Red, Blue, Black)">
+                              <button class="btn btn-outline-primary add-color" type="button">Add Color</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="text-end">
+                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Product Card 5 -->
+                <div class="col-lg-6">
+                  <div class="card product-card">
+                    <div class="card-header">
+                      <h5 class="mb-0">#product-PNJ005</h5>
+                    </div>
+                    <div class="card-body">
+                      <!-- Similar structure as PNJ001 -->
+                      <div class="product-images mb-4">
+                        <h6>Product Images</h6>
+                        <div class="row g-3" id="productImages-PNJ005">
+                          <!-- Images will be loaded dynamically -->
+                        </div>
+                        <div class="mt-3">
+                          <input type="file" class="form-control" id="imageUpload-PNJ005" multiple accept="image/*">
+                          <small class="text-muted">Min: 1 image, Max: 5 images</small>
+                        </div>
+                      </div>
+
+                      <form class="product-form">
+                        <!-- Similar form fields as PNJ001 -->
+                        <div class="mb-3">
+                          <label class="form-label">Product Name</label>
+                          <input type="text" class="form-control" name="productName">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Short Description</label>
+                          <input type="text" class="form-control" name="shortDescription">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Full Description</label>
+                          <textarea class="form-control" name="fullDescription" rows="3"></textarea>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Regular Price (৳)</label>
+                            <input type="number" class="form-control" name="regularPrice">
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Sale Price (৳)</label>
+                            <input type="number" class="form-control" name="salePrice">
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Sizes</label>
+                          <div class="size-tags" id="sizeTags-PNJ005">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Sizes will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add size (e.g. M, L, XL)">
+                              <button class="btn btn-outline-primary add-size" type="button">Add Size</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Colors</label>
+                          <div class="color-tags" id="colorTags-PNJ005">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Colors will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add color (e.g. Red, Blue, Black)">
+                              <button class="btn btn-outline-primary add-color" type="button">Add Color</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="text-end">
+                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Product Card 6 -->
+                <div class="col-lg-6">
+                  <div class="card product-card">
+                    <div class="card-header">
+                      <h5 class="mb-0">#product-PNJ006</h5>
+                    </div>
+                    <div class="card-body">
+                      <!-- Similar structure as PNJ001 -->
+                      <div class="product-images mb-4">
+                        <h6>Product Images</h6>
+                        <div class="row g-3" id="productImages-PNJ006">
+                          <!-- Images will be loaded dynamically -->
+                        </div>
+                        <div class="mt-3">
+                          <input type="file" class="form-control" id="imageUpload-PNJ006" multiple accept="image/*">
+                          <small class="text-muted">Min: 1 image, Max: 5 images</small>
+                        </div>
+                      </div>
+
+                      <form class="product-form">
+                        <!-- Similar form fields as PNJ001 -->
+                        <div class="mb-3">
+                          <label class="form-label">Product Name</label>
+                          <input type="text" class="form-control" name="productName">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Short Description</label>
+                          <input type="text" class="form-control" name="shortDescription">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Full Description</label>
+                          <textarea class="form-control" name="fullDescription" rows="3"></textarea>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Regular Price (৳)</label>
+                            <input type="number" class="form-control" name="regularPrice">
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">Sale Price (৳)</label>
+                            <input type="number" class="form-control" name="salePrice">
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Sizes</label>
+                          <div class="size-tags" id="sizeTags-PNJ006">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Sizes will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add size (e.g. M, L, XL)">
+                              <button class="btn btn-outline-primary add-size" type="button">Add Size</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Colors</label>
+                          <div class="color-tags" id="colorTags-PNJ006">
+                            <div class="d-flex gap-2 flex-wrap">
+                              <!-- Colors will be added here -->
+                            </div>
+                            <div class="mt-2">
+                              <input type="text" class="form-control" placeholder="Add color (e.g. Red, Blue, Black)">
+                              <button class="btn btn-outline-primary add-color" type="button">Add Color</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="text-end">
+                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Orders Section Content -->
+            <section id="ordersSection" class="content-section d-none">
+              <div class="section-header">
+                <h2>Order Form Settings</h2>
+                <p class="text-muted">Manage shipping costs and discount coupons</p>
+              </div>
+              <div class="row g-4">
+                <!-- Discount Coupon Card -->
+                <div class="col-lg-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Discount Coupon</h5>
+                      <p class="card-subtitle text-muted mb-4">Create and manage discount coupons</p>
+
+                      <form id="couponForm">
+                        <div class="mb-3">
+                          <label class="form-label">Coupon Code</label>
+                          <input type="text" class="form-control" id="couponCode" placeholder="e.g. SAVE20" required>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Discount Type</label>
+                          <select class="form-select" id="discountType" required>
+                            <option value="percentage">Percentage (%)</option>
+                            <option value="fixed">Fixed Amount (৳)</option>
+                          </select>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Discount Value</label>
+                          <input type="number" class="form-control" id="discountValue" min="0" required>
+                          <small class="form-text text-muted">Enter percentage (0-100) or fixed amount</small>
+                        </div>
+
+                        <div class="mb-4">
+                          <label class="form-label">Valid Until</label>
+                          <input type="date" class="form-control" id="validUntil" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                          <i class="bi bi-plus-lg"></i>
+                          Add Coupon
+                        </button>
+                      </form>
+
+                      <!-- Active Coupons List -->
+                      <div class="mt-4">
+                        <h6>Active Coupons</h6>
+                        <div class="list-group" id="activeCoupons">
+                          <!-- Coupons will be loaded here -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Shipping Cost Card -->
+                <div class="col-lg-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Shipping Cost</h5>
+                      <p class="card-subtitle text-muted mb-4">Set delivery charge for orders</p>
+
+                      <form id="shippingForm">
+                        <div class="mb-4">
+                          <label class="form-label">Shipping Cost (৳)</label>
+                          <input type="number" class="form-control" id="shippingCost" min="0" step="1" required>
+                          <small class="form-text text-muted">This amount will be added to the total order value</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                          <i class="bi bi-save"></i>
+                          Save Changes
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+
+</html>

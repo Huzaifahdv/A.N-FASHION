@@ -184,10 +184,6 @@ header .container h1 {
   font-size: 1rem;
   margin-top: 8px;
 }
-.features .feature-box:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
 @media (max-width: 576px) {
   .features h2 {
     font-size: 1.6rem;
@@ -368,6 +364,53 @@ header .container h1 {
   .product-card {
     max-height: 600px !important;
   }
+}
+.product-card .size-select,
+.product-card .color-select {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+.product-card .size-btn {
+  width: 40px;
+  height: 32px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+.product-card .size-btn.selected {
+  border-color: orange;
+  color: orange;
+}
+.product-card .size-btn:hover:not(.selected) {
+  background-color: #f9f9f9;
+}
+.product-card .size-btn:disabled {
+  cursor: not-allowed;
+  background-color: #f0f0f0;
+  color: #999;
+  border-color: #ddd;
+}
+.product-card .color-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: 2px solid transparent black;
+  background-color: var(--color);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.product-card .color-swatch.selected {
+  border: 3px solid #d4af37;
+}
+.product-card .color-swatch:hover {
+  opacity: 0.85;
 }
 
 .order-form {
